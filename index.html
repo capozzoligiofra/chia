@@ -490,7 +490,7 @@ canvas#fx { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events
       <p class="eyebrow">Album · Scritto per una persona sola</p>
       <h1>The Apology <em>Tape</em></h1>
       <div class="meta"><span>2026</span><span>8 brani</span><span id="total-time">36 min</span></div>
-      <p class="lede">Un messaggio mi sembrava poco. Così ho fatto un album, con l'aiuto non autorizzato di Drake, Kanye e The Weeknd. Apri le tracce una alla volta e ascolta fino in fondo.</p>
+      <p class="lede">Mi sono addormentato senza salutarti. Per farmi perdonare ho fatto un album, con l'aiuto non autorizzato di Drake, Kanye e The Weeknd. Apri le tracce una alla volta e ascolta fino in fondo.</p>
       <div class="actions">
         <button class="btn btn-primary" id="hero-play" type="button">
           <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg>
@@ -519,9 +519,9 @@ canvas#fx { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events
         <p class="eyebrow">Note di copertina</p>
         <dl>
           <div><dt>Per</dt><dd>Chiara</dd></div>
-          <div><dt>Prodotto da</dt><dd>Chi ha sbagliato e lo sa</dd></div>
+          <div><dt>Prodotto da</dt><dd>Uno che si è addormentato sul più bello</dd></div>
           <div><dt>Campioni</dt><dd>Drake, Kanye West, The Weeknd</dd></div>
-          <div><dt>Registrato</dt><dd>In camera, con le cuffie</dd></div>
+          <div><dt>Registrato</dt><dd>Rigorosamente da sveglio</dd></div>
         </dl>
       </aside>
       <div class="letter" id="letter"></div>
@@ -585,39 +585,39 @@ canvas#fx { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events
 /* spotify: il link del brano (su Spotify: Condividi → Copia link del brano).
    Se lo lasci vuoto, la traccia mostra un pulsante che cerca la canzone su Spotify. */
 const TRACKS = [
-  { title: "Ok, ho sbagliato", song: "Take Care", artist: "Drake", sec: 277,
+  { title: "Ok, mi sono addormentato", song: "Take Care", artist: "Drake", sec: 277,
     spotify: "",
-    text: "Partiamo dalle basi: scusa. Ho sbagliato io, lo ammetto senza giri di parole. E senza che tu me lo debba far notare un'altra volta." },
-  { title: "Non scappo", song: "Runaway", artist: "Kanye West", sec: 547,
+    text: "Partiamo dalle basi: scusa. Stavamo parlando e mi sono addormentato senza nemmeno salutarti. Non è stato il massimo, lo so." },
+  { title: "Non sono scappato", song: "Runaway", artist: "Kanye West", sec: 547,
     spotify: "https://open.spotify.com/track/3DK6m7It6Pw857FcQftMds",
-    text: "Potevo far finta di niente e aspettare che ti passasse. Invece eccomi qua, con un sito intero. Più impegno di così non si può." },
+    text: "Giuro che non me ne sono andato apposta. Non sono scappato, sono crollato. C'è una bella differenza, anche se da lì non si vedeva." },
   { title: "Niente drammi", song: "Save Your Tears", artist: "The Weeknd", sec: 215,
     spotify: "https://open.spotify.com/track/5QO79kh1waicV47BqGRL3g",
-    text: "Non voglio che una cavolata rovini tutto. Non ne vale la pena, e lo sappiamo benissimo tutti e due." },
+    text: "Lo so che è una cosa piccola, ma lasciarti lì senza nemmeno una buonanotte non è stato carino. Non facciamo diventare un colpo di sonno un caso di stato." },
   { title: "Non sono senza cuore", song: "Heartless", artist: "Kanye West", sec: 211,
     spotify: "https://open.spotify.com/track/4EWCNWgDS8707fNSZ1oaA5",
-    text: "Lo so, in quel momento ho dato il peggio di me. Giuro che è stato un momento di stupidità, non il mio stato naturale." },
-  { title: "Rispondi al telefono", song: "Hotline Bling", artist: "Drake", sec: 267,
+    text: "Non è che non mi importasse. Il cuore era sveglissimo, gli occhi purtroppo no." },
+  { title: "Messaggio senza risposta", song: "Hotline Bling", artist: "Drake", sec: 267,
     spotify: "https://open.spotify.com/track/0wwPcA6wtMf6HUMpIRdeP7",
-    text: "Mi mancano i tuoi messaggi, i vocali da tre minuti e le tue opinioni non richieste sulla musica. Sì, anche quelle." },
-  { title: "Senza di te è noia", song: "Blinding Lights", artist: "The Weeknd", sec: 200,
+    text: "Il tuo ultimo messaggio è rimasto lì senza risposta. Da oggi, prima di crollare, almeno un \"notte\" te lo scrivo." },
+  { title: "Luci spente", song: "Blinding Lights", artist: "The Weeknd", sec: 200,
     spotify: "https://open.spotify.com/track/0VjIjW4GlUZAMYd2vXMi3b",
-    text: "Senza di te le giornate sono decisamente più noiose. E poi chi altro mi corregge i gusti musicali?" },
+    text: "Le luci si sono spente prima del previsto. Le mie, non le tue. La prossima volta ti avviso prima di andare in standby." },
   { title: "Promesse (realistiche)", song: "Bound 2", artist: "Kanye West", sec: 229,
     spotify: "https://open.spotify.com/track/3sNVsP50132BTNlImLx70i",
-    text: "Non ti prometto che non farò mai più cavolate, sarebbe una bugia. Ti prometto che ci penserò due volte prima di farne un'altra così." },
+    text: "Non ti prometto che non mi addormenterò mai più: dopo una certa ora sono un pericolo. Ti prometto che almeno ti saluto prima." },
   { title: "Sei tu la star", song: "Starboy", artist: "The Weeknd", sec: 230,
     spotify: "https://open.spotify.com/track/7MXVkk9YMctZqd1Srtv4MB",
-    text: "Ultima traccia: questo album esiste solo perché ci tengo alla nostra amicizia. Il resto lo trovi qui sotto." }
+    text: "Ultima traccia: meritavi una buonanotte come si deve. Questa vale per quella che ti devo, più gli interessi." }
 ];
 
 const LETTER = [
   "Chiara,",
-  "lo so, un sito intero per chiedere scusa è un filo esagerato. Però un messaggio mi sembrava poco, e a voce avrei rischiato di peggiorare le cose. Così ho pensato di parlare la tua lingua: quella di Drake, Kanye e The Weeknd.",
-  "Non ti chiedo di far finta che non sia successo niente. Ascolta fino all'ultima traccia, poi decidi tu.",
-  "Se la risposta è sì, offro io. Promesso."
+  "lo so, un sito intero perché mi sono addormentato senza salutarti è un filo esagerato. Però un semplice \"scusa, sono crollato\" mi sembrava poco. Così ho pensato di parlare la tua lingua: quella di Drake, Kanye e The Weeknd.",
+  "Ascolta le tracce, poi decidi tu.",
+  "E per la cronaca: buonanotte. In ritardo, ma te la dovevo."
 ];
-const SIGNATURE = "Firmato: io, pentimento certificato";
+const SIGNATURE = "Firmato: io, sveglio stavolta";
 
 /* ============================================================ */
 
