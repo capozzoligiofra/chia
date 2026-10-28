@@ -1,6 +1,6 @@
 # The Apology Tape
 
-Un sito per chiedere scusa a Chiara, fatto come un album: nove tracce che campionano Drake, Kanye West e The Weeknd, una lettera nelle note di copertina e la domanda finale.
+Un sito per chiedere scusa a Chiara, fatto come un album: otto tracce che campionano Drake, Kanye West e The Weeknd, una lettera nelle note di copertina e la domanda finale.
 
 ## Personalizzare
 
