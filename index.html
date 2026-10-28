@@ -568,9 +568,9 @@ canvas#fx { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events
         <p class="eyebrow">Note di copertina</p>
         <dl>
           <div><dt>Per</dt><dd>Chiara</dd></div>
-          <div><dt>Prodotto da</dt><dd>Uno che ha sbagliato e lo sa</dd></div>
+          <div><dt>Prodotto da</dt><dd>Chi ha sbagliato e lo sa</dd></div>
           <div><dt>Campioni</dt><dd>Drake, Kanye West, The Weeknd</dd></div>
-          <div><dt>Registrato</dt><dd>Di notte, pensando a te</dd></div>
+          <div><dt>Registrato</dt><dd>In camera, con le cuffie</dd></div>
         </dl>
       </aside>
       <div class="letter" id="letter"></div>
@@ -589,20 +589,20 @@ canvas#fx { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events
           <button class="btn btn-ghost" id="no" type="button">No</button>
         </div>
         <button class="need-time" id="need-time" type="button">Ho bisogno di un po' di tempo</button>
-        <p class="reply" id="time-reply" hidden>Ci sta. Prenditi tutto il tempo che ti serve. Io sono qui, e il disco resta in rotazione.</p>
+        <p class="reply" id="time-reply" hidden>Ci sta. Prenditi il tempo che ti serve: il disco resta in rotazione.</p>
       </div>
 
       <div class="after" id="after" hidden>
-        <h3>Grazie, Chiara.</h3>
-        <p>Hai appena sbloccato la traccia nascosta. Questo biglietto vale una volta, quando vuoi tu.</p>
+        <h3>Pace fatta.</h3>
+        <p>Hai appena sbloccato la traccia nascosta: un buono da riscattare quando vuoi.</p>
         <div class="ticket">
           <div class="main">
             <span class="kicker">Admit one · Chiara</span>
-            <span class="what">Una serata scelta da te</span>
+            <span class="what">Un giro offerto da me</span>
             <div class="rows">
               <div><span>Quando</span><b>Quando vuoi</b></div>
-              <div><span>Posto</span><b>Accanto a me</b></div>
-              <div><span>Colonna sonora</span><b>Decidi tu</b></div>
+              <div><span>Cosa</span><b>Caffè, spritz o pizza</b></div>
+              <div><span>Musica</span><b>Scegli tu</b></div>
             </div>
           </div>
           <div class="stub">XO · OVO</div>
@@ -629,7 +629,7 @@ canvas#fx { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events
     <div class="np">
       <div class="np-art" aria-hidden="true">C</div>
       <div class="np-text">
-        <span class="np-title" id="np-title">Mi dispiace, punto</span>
+        <span class="np-title" id="np-title">Ok, ho sbagliato</span>
         <span class="np-sub" id="np-sub">Chiara · The Apology Tape</span>
       </div>
     </div>
@@ -663,33 +663,33 @@ canvas#fx { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events
    Cambia i testi come vuoi: più sono tuoi, meglio è.
    ============================================================ */
 const TRACKS = [
-  { title: "Mi dispiace, punto", song: "Take Care", artist: "Drake", sec: 24,
-    text: "Parto da qui: mi dispiace. Non \"mi dispiace se ti sei offesa\". Mi dispiace e basta. Ho sbagliato io, e ci tengo troppo a te per far finta di niente." },
-  { title: "Non scappo", song: "Runaway", artist: "Kanye West", sec: 26,
-    text: "La cosa più facile sarebbe stata sparire e aspettare che passasse. Non lo faccio. Resto qui, ci metto la faccia e mi prendo la responsabilità di quello che ho fatto." },
-  { title: "Niente lacrime", song: "Save Your Tears", artist: "The Weeknd", sec: 24,
-    text: "L'ultima cosa che voglio è essere il motivo per cui stai male. Se ti ho fatta arrabbiare, o peggio, è proprio questa la parte che mi pesa di più." },
-  { title: "Non senza cuore", song: "Heartless", artist: "Kanye West", sec: 25,
-    text: "So che in quel momento sono sembrato freddo, quasi senza cuore. Non lo sono, non con te. Sono stato stupido, e lo so benissimo." },
-  { title: "Il tuo nome sullo schermo", song: "Hotline Bling", artist: "Drake", sec: 27,
-    text: "Mi manca vedere il tuo nome comparire sul telefono. Mi mancano i tuoi vocali, le tue opinioni sulle canzoni, anche quelle su cui non siamo d'accordo." },
-  { title: "Tutto più spento", song: "Blinding Lights", artist: "The Weeknd", sec: 24,
-    text: "Senza di te le giornate sono più spente. Non sto esagerando: quando ci sei tu, tutto ha più luce." },
-  { title: "Promesse vere", song: "Bound 2", artist: "Kanye West", sec: 29,
-    text: "Non sono perfetto e non ti prometto che non sbaglierò mai più. Ti prometto che ti ascolterò di più, che ne parlerò invece di chiudermi, e che da questa volta imparo." },
-  { title: "Torniamo a casa", song: "Hold On, We're Going Home", artist: "Drake", sec: 26,
-    text: "Se mi dai la possibilità, voglio tornare a noi. A quello che eravamo prima, e magari a qualcosa di ancora meglio." },
-  { title: "Per te", song: "Die For You", artist: "The Weeknd", sec: 28,
-    text: "Ultima traccia, la più semplice: ci tengo a te. Tantissimo. Il resto lo trovi qui sotto." }
+  { title: "Ok, ho sbagliato", song: "Take Care", artist: "Drake", sec: 22,
+    text: "Partiamo dalle basi: scusa. Ho sbagliato io, lo ammetto senza giri di parole. E senza che tu me lo debba far notare un'altra volta." },
+  { title: "Non scappo", song: "Runaway", artist: "Kanye West", sec: 24,
+    text: "Potevo far finta di niente e aspettare che ti passasse. Invece eccomi qua, con un sito intero. Più impegno di così non si può." },
+  { title: "Niente drammi", song: "Save Your Tears", artist: "The Weeknd", sec: 22,
+    text: "Non voglio che una cavolata rovini tutto. Non ne vale la pena, e lo sappiamo benissimo tutti e due." },
+  { title: "Non sono senza cuore", song: "Heartless", artist: "Kanye West", sec: 23,
+    text: "Lo so, in quel momento ho dato il peggio di me. Giuro che è stato un momento di stupidità, non il mio stato naturale." },
+  { title: "Rispondi al telefono", song: "Hotline Bling", artist: "Drake", sec: 24,
+    text: "Mi mancano i tuoi messaggi, i vocali da tre minuti e le tue opinioni non richieste sulla musica. Sì, anche quelle." },
+  { title: "Senza di te è noia", song: "Blinding Lights", artist: "The Weeknd", sec: 22,
+    text: "Senza di te le giornate sono decisamente più noiose. E poi chi altro mi corregge i gusti musicali?" },
+  { title: "Promesse (realistiche)", song: "Bound 2", artist: "Kanye West", sec: 25,
+    text: "Non ti prometto che non farò mai più cavolate, sarebbe una bugia. Ti prometto che ci penserò due volte prima di farne un'altra così." },
+  { title: "Torniamo come prima", song: "Hold On, We're Going Home", artist: "Drake", sec: 23,
+    text: "Proposta: chiudiamo qui la questione e torniamo a com'eravamo. Il primo giro lo offro io." },
+  { title: "Sei tu la star", song: "Starboy", artist: "The Weeknd", sec: 24,
+    text: "Ultima traccia: questo album esiste solo perché ci tengo alla nostra amicizia. Il resto lo trovi qui sotto." }
 ];
 
 const LETTER = [
   "Chiara,",
-  "ci ho pensato a lungo prima di chiederti scusa. Un messaggio mi sembrava poco, e a voce avrei rischiato di dire di nuovo la cosa sbagliata. Così ho fatto quello che so che ami: ho messo tutto in musica.",
-  "Non ti chiedo di dimenticare. Ti chiedo solo di ascoltare fino all'ultima traccia, e poi di decidere tu.",
-  "Qualunque cosa sceglierai, la rispetterò. Però spero davvero che la risposta sia sì."
+  "lo so, un sito intero per chiedere scusa è un filo esagerato. Però un messaggio mi sembrava poco, e a voce avrei rischiato di peggiorare le cose. Così ho pensato di parlare la tua lingua: quella di Drake, Kanye e The Weeknd.",
+  "Non ti chiedo di far finta che non sia successo niente. Ascolta fino all'ultima traccia, poi decidi tu.",
+  "Se la risposta è sì, offro io. Promesso."
 ];
-const SIGNATURE = "Con tutto il cuore, io";
+const SIGNATURE = "Firmato: io, pentimento certificato";
 
 /* ============================================================ */
 
@@ -982,7 +982,7 @@ function sayYes() {
   if (!reduceMotion) burst();
 }
 
-/* ---------- Pioggia di cuori ---------- */
+/* ---------- Coriandoli ---------- */
 function burst() {
   const c = $("#fx");
   const g = c.getContext("2d");
@@ -990,7 +990,7 @@ function burst() {
   c.width = innerWidth * dpr;
   c.height = innerHeight * dpr;
   g.scale(dpr, dpr);
-  const colors = ["#e2364a", "#d8b26e", "#f3ece2", "#ff7a8a"];
+  const colors = ["#e2364a", "#d8b26e", "#f3ece2", "#8fb3ff"];
   const parts = Array.from({ length: 140 }, () => ({
     x: innerWidth / 2 + (Math.random() - 0.5) * 120,
     y: innerHeight * 0.6,
@@ -998,20 +998,15 @@ function burst() {
     vy: -Math.random() * 16 - 6,
     s: 6 + Math.random() * 10,
     r: Math.random() * Math.PI,
-    vr: (Math.random() - 0.5) * 0.2,
+    vr: (Math.random() - 0.5) * 0.4,
     c: colors[Math.floor(Math.random() * colors.length)]
   }));
-  const heart = (x, y, s, r, col) => {
+  const piece = (x, y, s, r, col) => {
     g.save();
     g.translate(x, y);
     g.rotate(r);
-    g.scale(s / 16, s / 16);
     g.fillStyle = col;
-    g.beginPath();
-    g.moveTo(0, 5);
-    g.bezierCurveTo(-9, -2, -6, -11, 0, -6);
-    g.bezierCurveTo(6, -11, 9, -2, 0, 5);
-    g.fill();
+    g.fillRect(-s / 2, -s / 4, s, s / 2);
     g.restore();
   };
   const start = performance.now();
@@ -1023,7 +1018,7 @@ function burst() {
       p.x += p.vx;
       p.y += p.vy;
       p.r += p.vr;
-      heart(p.x, p.y, p.s, p.r, p.c);
+      piece(p.x, p.y, p.s, p.r, p.c);
     });
     if (now - start < 4500) requestAnimationFrame(frame);
     else g.clearRect(0, 0, innerWidth, innerHeight);
