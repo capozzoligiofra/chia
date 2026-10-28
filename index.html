@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,800;1,6..96,500;1,6..96,700&family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;700&display=swap">
 <style>
 /* Layout: una copertina d'album con il vinile che esce dalla busta, poi tracklist stile app di streaming,
-   note di copertina (la lettera), la domanda finale e una barra del player fissa in basso. */
+   note di copertina (la lettera) con il player di Spotify in ogni traccia, poi la domanda finale. */
 :root {
   --night: #0c0a0f;
   --sleeve: #17121b;
@@ -23,7 +23,6 @@
   --display: 'Bodoni Moda', Didot, 'Bodoni 72', Georgia, serif;
   --body: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
-  --bar-h: 76px;
   color-scheme: dark;
 }
 
@@ -121,7 +120,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
   letter-spacing: .02em;
 }
 .vinyl .label span { transform: translateY(-34%); }
-body.playing .vinyl { animation-duration: 1.8s; }
 
 .sleeve {
   position: absolute;
@@ -257,13 +255,6 @@ section + section { border-top: 1px solid var(--line); }
   text-align: center;
 }
 .track.current .num { color: var(--red); }
-.eq { display: none; gap: 2px; height: 14px; align-items: flex-end; justify-content: center; }
-.eq i { width: 3px; background: var(--red); animation: eq .9s ease-in-out infinite; }
-.eq i:nth-child(2) { animation-delay: -.3s; }
-.eq i:nth-child(3) { animation-delay: -.6s; }
-body.playing .track.current .eq { display: flex; }
-body.playing .track.current .num-text { display: none; }
-
 .t-main { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .t-title { font-weight: 700; font-size: 17px; line-height: 1.3; }
 .track.current .t-title { color: var(--gold); }
@@ -285,7 +276,15 @@ body.playing .track.current .num-text { display: none; }
   font: italic 500 clamp(19px, 2.4vw, 23px)/1.5 var(--display);
   color: var(--paper);
 }
-.lyric a {
+.lyric .embed {
+  margin: -8px 8px 24px 64px;
+  max-width: 560px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--sleeve);
+}
+.lyric iframe { display: block; width: 100%; height: 152px; border: 0; }
+.lyric a.listen {
   display: inline-block;
   margin: -12px 0 24px 64px;
   font: 500 12px/1 var(--mono);
@@ -293,7 +292,7 @@ body.playing .track.current .num-text { display: none; }
   text-transform: uppercase;
   text-decoration: none;
 }
-.lyric a:hover { text-decoration: underline; }
+.lyric a.listen:hover { text-decoration: underline; }
 
 /* ---------- Liner notes ---------- */
 .notes-grid {
@@ -439,61 +438,15 @@ body.playing .track.current .num-text { display: none; }
 
 footer {
   border-top: 1px solid var(--line);
-  padding-block: 32px calc(var(--bar-h) + 40px);
+  padding-block: 32px 40px;
   font: 400 12px/1.6 var(--mono);
   color: var(--muted);
 }
 footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
 
-/* ---------- Player bar ---------- */
-.player {
-  position: fixed;
-  left: 0; right: 0; bottom: 0;
-  z-index: 20;
-  background: rgba(16, 12, 19, .92);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-top: 1px solid var(--line);
-  padding-bottom: env(safe-area-inset-bottom, 0px);
-}
-.player .wrap {
-  height: var(--bar-h);
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  align-items: center;
-  gap: 16px;
-}
-.np { display: flex; align-items: center; gap: 12px; min-width: 0; }
-.np-art {
-  width: 44px; height: 44px; flex: none;
-  border-radius: 4px;
-  background: radial-gradient(ellipse 90% 70% at 30% 20%, var(--red), #1a0c12 70%);
-  display: grid; place-items: center;
-  font: italic 700 18px/1 var(--display);
-}
-.np-text { min-width: 0; display: flex; flex-direction: column; }
-.np-title { font-weight: 700; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.np-sub { font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.controls { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-.ctrl-row { display: flex; align-items: center; gap: 14px; }
-.ctrl {
-  background: none; border: 0; padding: 6px;
-  display: grid; place-items: center;
-  color: var(--paper);
-  border-radius: 50%;
-}
-.ctrl svg { width: 18px; height: 18px; fill: currentColor; }
-.ctrl.main { width: 40px; height: 40px; background: var(--paper); color: var(--night); }
-.ctrl.main svg { width: 16px; height: 16px; }
-.progress { display: flex; align-items: center; gap: 8px; font: 400 11px/1 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
-.bar { width: clamp(120px, 26vw, 300px); height: 4px; border-radius: 2px; background: var(--line); overflow: hidden; }
-.bar i { display: block; height: 100%; width: 0; background: var(--paper); }
-.vol-note { justify-self: end; font: 400 11px/1.4 var(--mono); color: var(--muted); text-align: right; }
-
 canvas#fx { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 30; }
 
 @keyframes spin { to { transform: rotate(360deg); } }
-@keyframes eq { 0%, 100% { height: 3px; } 50% { height: 14px; } }
 
 @media (max-width: 760px) {
   .hero .wrap { grid-template-columns: minmax(0, 1fr); }
@@ -501,10 +454,8 @@ canvas#fx { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events
   .notes-grid { grid-template-columns: minmax(0, 1fr); }
   .credits { order: 2; }
   .lyric p { padding-left: 8px; }
-  .lyric a { margin-left: 8px; }
+  .lyric a.listen, .lyric .embed { margin-left: 8px; }
   .track-row { grid-template-columns: 28px minmax(0, 1fr) auto; gap: 12px; padding-inline: 4px; }
-  .player .wrap { grid-template-columns: minmax(0, 1fr) auto; }
-  .vol-note, .progress { display: none; }
   .playlist ol { grid-template-columns: minmax(0, 1fr); }
   .ticket { grid-template-columns: minmax(0, 1fr) 72px; }
   .ticket::before, .ticket::after { right: 72px; }
@@ -514,7 +465,7 @@ canvas#fx { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .vinyl, .eq i { animation: none; }
+  .vinyl { animation: none; }
   .lyric, #no, #yes { transition: none; }
 }
 </style>
@@ -538,12 +489,12 @@ canvas#fx { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events
     <div class="hero-copy">
       <p class="eyebrow">Album · Scritto per una persona sola</p>
       <h1>The Apology <em>Tape</em></h1>
-      <div class="meta"><span>2026</span><span>9 brani</span><span id="total-time">4 min</span></div>
-      <p class="lede">Un messaggio mi sembrava poco. Così ho fatto un album, con l'aiuto non autorizzato di Drake, Kanye e The Weeknd. Premi play e ascolta fino in fondo.</p>
+      <div class="meta"><span>2026</span><span>9 brani</span><span id="total-time">40 min</span></div>
+      <p class="lede">Un messaggio mi sembrava poco. Così ho fatto un album, con l'aiuto non autorizzato di Drake, Kanye e The Weeknd. Apri le tracce una alla volta e ascolta fino in fondo.</p>
       <div class="actions">
         <button class="btn btn-primary" id="hero-play" type="button">
           <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg>
-          <span>Ascolta</span>
+          <span>Inizia dalla traccia 1</span>
         </button>
         <a class="btn btn-ghost" href="#finale">Salta al finale</a>
       </div>
@@ -624,37 +575,6 @@ canvas#fx { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events
   </div>
 </footer>
 
-<div class="player" role="region" aria-label="Player">
-  <div class="wrap">
-    <div class="np">
-      <div class="np-art" aria-hidden="true">C</div>
-      <div class="np-text">
-        <span class="np-title" id="np-title">Ok, ho sbagliato</span>
-        <span class="np-sub" id="np-sub">Chiara · The Apology Tape</span>
-      </div>
-    </div>
-    <div class="controls">
-      <div class="ctrl-row">
-        <button class="ctrl" id="prev" type="button" aria-label="Traccia precedente">
-          <svg viewBox="0 0 16 16"><path d="M3 3h2v10H3zM14 3v10L6 8z"/></svg>
-        </button>
-        <button class="ctrl main" id="play" type="button" aria-label="Riproduci">
-          <svg viewBox="0 0 16 16" id="play-icon"><path d="M4 2.5v11l9-5.5z"/></svg>
-        </button>
-        <button class="ctrl" id="next" type="button" aria-label="Traccia successiva">
-          <svg viewBox="0 0 16 16"><path d="M11 3h2v10h-2zM2 3v10l8-5z"/></svg>
-        </button>
-      </div>
-      <div class="progress">
-        <span id="t-now">0:00</span>
-        <div class="bar"><i id="bar-fill"></i></div>
-        <span id="t-len">0:00</span>
-      </div>
-    </div>
-    <div class="vol-note">Alza il volume</div>
-  </div>
-</div>
-
 <canvas id="fx" aria-hidden="true"></canvas>
 
 <script>
@@ -662,24 +582,35 @@ canvas#fx { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events
    PERSONALIZZA QUI
    Cambia i testi come vuoi: più sono tuoi, meglio è.
    ============================================================ */
+/* spotify: il link del brano (su Spotify: Condividi → Copia link del brano).
+   Se lo lasci vuoto, la traccia mostra un pulsante che cerca la canzone su Spotify. */
 const TRACKS = [
-  { title: "Ok, ho sbagliato", song: "Take Care", artist: "Drake", sec: 22,
+  { title: "Ok, ho sbagliato", song: "Take Care", artist: "Drake", sec: 277,
+    spotify: "",
     text: "Partiamo dalle basi: scusa. Ho sbagliato io, lo ammetto senza giri di parole. E senza che tu me lo debba far notare un'altra volta." },
-  { title: "Non scappo", song: "Runaway", artist: "Kanye West", sec: 24,
+  { title: "Non scappo", song: "Runaway", artist: "Kanye West", sec: 547,
+    spotify: "https://open.spotify.com/track/3DK6m7It6Pw857FcQftMds",
     text: "Potevo far finta di niente e aspettare che ti passasse. Invece eccomi qua, con un sito intero. Più impegno di così non si può." },
-  { title: "Niente drammi", song: "Save Your Tears", artist: "The Weeknd", sec: 22,
+  { title: "Niente drammi", song: "Save Your Tears", artist: "The Weeknd", sec: 215,
+    spotify: "https://open.spotify.com/track/5QO79kh1waicV47BqGRL3g",
     text: "Non voglio che una cavolata rovini tutto. Non ne vale la pena, e lo sappiamo benissimo tutti e due." },
-  { title: "Non sono senza cuore", song: "Heartless", artist: "Kanye West", sec: 23,
+  { title: "Non sono senza cuore", song: "Heartless", artist: "Kanye West", sec: 211,
+    spotify: "https://open.spotify.com/track/4EWCNWgDS8707fNSZ1oaA5",
     text: "Lo so, in quel momento ho dato il peggio di me. Giuro che è stato un momento di stupidità, non il mio stato naturale." },
-  { title: "Rispondi al telefono", song: "Hotline Bling", artist: "Drake", sec: 24,
+  { title: "Rispondi al telefono", song: "Hotline Bling", artist: "Drake", sec: 267,
+    spotify: "https://open.spotify.com/track/0wwPcA6wtMf6HUMpIRdeP7",
     text: "Mi mancano i tuoi messaggi, i vocali da tre minuti e le tue opinioni non richieste sulla musica. Sì, anche quelle." },
-  { title: "Senza di te è noia", song: "Blinding Lights", artist: "The Weeknd", sec: 22,
+  { title: "Senza di te è noia", song: "Blinding Lights", artist: "The Weeknd", sec: 200,
+    spotify: "https://open.spotify.com/track/0VjIjW4GlUZAMYd2vXMi3b",
     text: "Senza di te le giornate sono decisamente più noiose. E poi chi altro mi corregge i gusti musicali?" },
-  { title: "Promesse (realistiche)", song: "Bound 2", artist: "Kanye West", sec: 25,
+  { title: "Promesse (realistiche)", song: "Bound 2", artist: "Kanye West", sec: 229,
+    spotify: "https://open.spotify.com/track/3sNVsP50132BTNlImLx70i",
     text: "Non ti prometto che non farò mai più cavolate, sarebbe una bugia. Ti prometto che ci penserò due volte prima di farne un'altra così." },
-  { title: "Torniamo come prima", song: "Hold On, We're Going Home", artist: "Drake", sec: 23,
+  { title: "Torniamo come prima", song: "Hold On, We're Going Home", artist: "Drake", sec: 227,
+    spotify: "",
     text: "Proposta: chiudiamo qui la questione e torniamo a com'eravamo. Il primo giro lo offro io." },
-  { title: "Sei tu la star", song: "Starboy", artist: "The Weeknd", sec: 24,
+  { title: "Sei tu la star", song: "Starboy", artist: "The Weeknd", sec: 230,
+    spotify: "https://open.spotify.com/track/7MXVkk9YMctZqd1Srtv4MB",
     text: "Ultima traccia: questo album esiste solo perché ci tengo alla nostra amicizia. Il resto lo trovi qui sotto." }
 ];
 
@@ -696,7 +627,21 @@ const SIGNATURE = "Firmato: io, pentimento certificato";
 const $ = (s) => document.querySelector(s);
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const fmt = (s) => Math.floor(s / 60) + ":" + String(Math.floor(s % 60)).padStart(2, "0");
-const spotify = (t) => "https://open.spotify.com/search/" + encodeURIComponent(t.song + " " + t.artist);
+
+const trackId = (t) => (t.spotify.match(/track\/([A-Za-z0-9]+)/) || [])[1];
+const spotify = (t) => trackId(t)
+  ? "https://open.spotify.com/track/" + trackId(t)
+  : "https://open.spotify.com/search/" + encodeURIComponent(t.song + " " + t.artist);
+
+/* I player di Spotify funzionano sul sito pubblicato. Dove la pagina non li può caricare
+   (per esempio nell'anteprima di Claude) si torna al pulsante "Ascolta su Spotify". */
+let embedsBlocked = false;
+document.addEventListener("securitypolicyviolation", (e) => {
+  if (!/spotify/.test(e.blockedURI || "")) return;
+  embedsBlocked = true;
+  document.querySelectorAll(".lyric .embed").forEach((el) => el.remove());
+  document.querySelectorAll(".lyric a.listen").forEach((a) => { a.hidden = false; });
+});
 
 /* ---------- Render ---------- */
 const list = $("#tracks");
@@ -705,20 +650,20 @@ TRACKS.forEach((t, i) => {
   li.className = "track";
   li.innerHTML = `
     <button class="track-row" type="button" aria-expanded="false" aria-controls="lyric-${i}">
-      <span class="num"><span class="num-text">${i + 1}</span><span class="eq" aria-hidden="true"><i></i><i></i><i></i></span></span>
+      <span class="num">${i + 1}</span>
       <span class="t-main">
         <span class="t-title"></span>
         <span class="t-sample">campiona <b></b> · </span>
       </span>
       <span class="t-dur">${fmt(t.sec)}</span>
     </button>
-    <div class="lyric" id="lyric-${i}"><div><p></p><a target="_blank" rel="noopener">Ascolta l'originale ↗</a></div></div>`;
+    <div class="lyric" id="lyric-${i}"><div><p></p><a class="listen" target="_blank" rel="noopener">Ascolta su Spotify ↗</a></div></div>`;
   li.querySelector(".t-title").textContent = t.title;
   li.querySelector(".t-sample b").textContent = t.song;
   li.querySelector(".t-sample").append(t.artist);
   li.querySelector(".lyric p").textContent = t.text;
   li.querySelector(".lyric a").href = spotify(t);
-  li.querySelector(".track-row").addEventListener("click", () => selectTrack(i, true));
+  li.querySelector(".track-row").addEventListener("click", () => toggleTrack(i));
   list.appendChild(li);
 });
 
@@ -750,180 +695,36 @@ TRACKS.forEach((t) => {
   pl.appendChild(li);
 });
 
-/* ---------- Player state ---------- */
-let current = 0;
-let elapsed = 0;
-let playing = false;
-let lastTick = 0;
+/* ---------- Tracce ---------- */
+function addEmbed(li, t) {
+  const id = trackId(t);
+  if (!id || embedsBlocked || li.querySelector(".embed")) return;
+  const box = document.createElement("div");
+  box.className = "embed";
+  const f = document.createElement("iframe");
+  f.src = "https://open.spotify.com/embed/track/" + id + "?utm_source=generator&theme=0";
+  f.title = t.song + " di " + t.artist + " su Spotify";
+  f.allow = "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture";
+  box.appendChild(f);
+  const link = li.querySelector(".lyric a.listen");
+  link.hidden = true;
+  link.before(box);
+}
 
-function selectTrack(i, toggleIfSame) {
-  const items = list.children;
-  const same = i === current && items[i].classList.contains("open");
-  [...items].forEach((li, k) => {
-    li.classList.toggle("current", k === i);
-    if (k !== i) {
-      li.classList.remove("open");
-      li.querySelector(".track-row").setAttribute("aria-expanded", "false");
-    }
+function toggleTrack(i, forceOpen) {
+  [...list.children].forEach((li, k) => {
+    const open = k === i && (forceOpen || !li.classList.contains("open"));
+    li.classList.toggle("open", open);
+    li.classList.toggle("current", open);
+    li.querySelector(".track-row").setAttribute("aria-expanded", String(open));
+    if (open) addEmbed(li, TRACKS[k]);
   });
-  if (same && toggleIfSame) {
-    items[i].classList.remove("open");
-    items[i].querySelector(".track-row").setAttribute("aria-expanded", "false");
-    return;
-  }
-  items[i].classList.add("open");
-  items[i].querySelector(".track-row").setAttribute("aria-expanded", "true");
-  if (i !== current) elapsed = 0;
-  current = i;
-  $("#np-title").textContent = TRACKS[i].title;
-  $("#np-sub").textContent = "campiona " + TRACKS[i].song + " · " + TRACKS[i].artist;
-  $("#t-len").textContent = fmt(TRACKS[i].sec);
-  drawProgress();
 }
 
-function drawProgress() {
-  const t = TRACKS[current];
-  $("#bar-fill").style.width = Math.min(100, (elapsed / t.sec) * 100) + "%";
-  $("#t-now").textContent = fmt(elapsed);
-}
-
-function tick(now) {
-  if (!playing) return;
-  const dt = lastTick ? (now - lastTick) / 1000 : 0;
-  lastTick = now;
-  elapsed += dt;
-  if (elapsed >= TRACKS[current].sec) {
-    if (current < TRACKS.length - 1) {
-      elapsed = 0;
-      selectTrack(current + 1, false);
-      list.children[current].scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
-    } else {
-      setPlaying(false);
-      elapsed = 0;
-      $("#finale").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
-      return;
-    }
-  }
-  drawProgress();
-  requestAnimationFrame(tick);
-}
-
-const PLAY_PATH = "M4 2.5v11l9-5.5z";
-const PAUSE_PATH = "M4 2.5h3v11H4zM9 2.5h3v11H9z";
-
-function setPlaying(on) {
-  playing = on;
-  document.body.classList.toggle("playing", on);
-  $("#play-icon").innerHTML = `<path d="${on ? PAUSE_PATH : PLAY_PATH}"/>`;
-  $("#play").setAttribute("aria-label", on ? "Pausa" : "Riproduci");
-  $("#hero-play span").textContent = on ? "Pausa" : "Ascolta";
-  if (on) {
-    synth.start();
-    lastTick = 0;
-    requestAnimationFrame(tick);
-  } else {
-    synth.stop();
-  }
-}
-
-$("#play").addEventListener("click", () => setPlaying(!playing));
 $("#hero-play").addEventListener("click", () => {
-  if (!playing) {
-    if (!list.children[current].classList.contains("open")) selectTrack(current, false);
-    $("#tracklist").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
-  }
-  setPlaying(!playing);
+  toggleTrack(0, true);
+  $("#tracklist").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
 });
-$("#prev").addEventListener("click", () => {
-  if (elapsed > 3 || current === 0) { elapsed = 0; selectTrack(current, false); }
-  else selectTrack(current - 1, false);
-});
-$("#next").addEventListener("click", () => {
-  if (current < TRACKS.length - 1) selectTrack(current + 1, false);
-});
-
-/* ---------- Synth: un loop anni '80 notturno, generato dal vivo ---------- */
-const synth = (() => {
-  let ctx, master, delay, timer;
-  let step = 0, nextT = 0;
-  const BPM = 92;
-  const EIGHTH = 60 / BPM / 2;
-  // Fm - Db - Ab - Eb
-  const CHORDS = [[53, 56, 60, 65], [49, 53, 56, 61], [56, 60, 63, 68], [51, 55, 58, 63]];
-  const ARP = [0, 1, 2, 3, 2, 1, 2, 3];
-  const hz = (m) => 440 * Math.pow(2, (m - 69) / 12);
-
-  function init() {
-    const AC = window.AudioContext || window.webkitAudioContext;
-    if (!AC) return false;
-    ctx = new AC();
-    master = ctx.createGain();
-    master.gain.value = 0;
-    const comp = ctx.createDynamicsCompressor();
-    master.connect(comp).connect(ctx.destination);
-    delay = ctx.createDelay(1);
-    delay.delayTime.value = EIGHTH * 3;
-    const fb = ctx.createGain();
-    fb.gain.value = 0.35;
-    const wet = ctx.createGain();
-    wet.gain.value = 0.3;
-    delay.connect(fb).connect(delay);
-    delay.connect(wet).connect(master);
-    return true;
-  }
-
-  function voice(freq, t, dur, type, peak, cutoff, toDelay) {
-    const o = ctx.createOscillator();
-    const g = ctx.createGain();
-    const f = ctx.createBiquadFilter();
-    o.type = type;
-    o.frequency.value = freq;
-    f.type = "lowpass";
-    f.frequency.value = cutoff;
-    g.gain.setValueAtTime(0.0001, t);
-    g.gain.exponentialRampToValueAtTime(peak, t + Math.min(0.3, dur * 0.2));
-    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-    o.connect(f).connect(g).connect(master);
-    if (toDelay) g.connect(delay);
-    o.start(t);
-    o.stop(t + dur + 0.05);
-  }
-
-  function schedule() {
-    while (nextT < ctx.currentTime + 0.25) {
-      const chord = CHORDS[Math.floor(step / 8) % 4];
-      if (step % 8 === 0) {
-        chord.forEach((m) => {
-          voice(hz(m) * 0.997, nextT, EIGHTH * 8.2, "sawtooth", 0.035, 900, false);
-          voice(hz(m) * 1.003, nextT, EIGHTH * 8.2, "sawtooth", 0.035, 900, false);
-        });
-        voice(hz(chord[0] - 12), nextT, EIGHTH * 7.5, "triangle", 0.22, 400, false);
-      }
-      voice(hz(chord[ARP[step % 8]] + 12), nextT, EIGHTH * 0.9, "square", 0.05, 2200, true);
-      nextT += EIGHTH;
-      step++;
-    }
-  }
-
-  return {
-    start() {
-      if (!ctx && !init()) return;
-      ctx.resume();
-      nextT = ctx.currentTime + 0.05;
-      master.gain.cancelScheduledValues(ctx.currentTime);
-      master.gain.setTargetAtTime(0.5, ctx.currentTime, 0.4);
-      clearInterval(timer);
-      schedule();
-      timer = setInterval(schedule, 80);
-    },
-    stop() {
-      if (!ctx) return;
-      clearInterval(timer);
-      master.gain.cancelScheduledValues(ctx.currentTime);
-      master.gain.setTargetAtTime(0, ctx.currentTime, 0.15);
-    }
-  };
-})();
 
 /* ---------- Finale ---------- */
 const NO_LINES = ["No", "Sicura?", "Ripensaci", "Dai…", "Non ci credo", "Ultima chance", "Ok, ok… Sì"];
@@ -978,7 +779,6 @@ function sayYes() {
   $("#ask").hidden = true;
   $("#after").hidden = false;
   $("#finale").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
-  if (!playing) { selectTrack(TRACKS.length - 1, false); setPlaying(true); }
   if (!reduceMotion) burst();
 }
 
@@ -1025,9 +825,6 @@ function burst() {
   })(start);
 }
 
-selectTrack(0, false);
-list.children[0].classList.remove("open");
-list.children[0].querySelector(".track-row").setAttribute("aria-expanded", "false");
 </script>
 </body>
 </html>
